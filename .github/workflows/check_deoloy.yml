@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: get number of commits in the difference
         run: |
+          git branch -a 
           git rev-list origin/production..origin/master --count
           echo test
       - name: Run a multi-line script
