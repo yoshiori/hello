@@ -6,14 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout master
+      - name: checkout
         uses: actions/checkout@v2
         with:
-          ref: master
-      - name: checkout production
-        uses: actions/checkout@v2
-        with:
-          ref: production
+          fetch-depth: 0
       - name: get number of commits in the difference
         run: |
           git branch -a 
