@@ -9,11 +9,11 @@ jobs:
       - name: checkout master
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: origin/master
       - name: checkout production
         uses: actions/checkout@v2
         with:
-          ref: production
+          ref: origin/production
       - name: get number of commits in the difference
         run: |
           git branch -a 
