@@ -20,6 +20,7 @@ jobs:
           echo Add other actions to build,
           echo count = ${{ steps.difference-count.outputs.DIFF_COUNT }}
           echo ${{ steps.difference-count.outputs.DIFF_COUNT > 10 }}
+          echo ${{ steps.difference-count.outputs.DIFF_COUNT < 100 }}
           echo test, and deploy your project.
       - name: if test
         if: steps.difference-count.outputs.DIFF_COUNT > 10
