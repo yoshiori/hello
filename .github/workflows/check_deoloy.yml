@@ -22,7 +22,7 @@ jobs:
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
-          text: The differential commit with production is now large.
+          text: ':male-astronaut: Production no longer fresh!!! :rocket:'
           attachments: |
                   [
                     {
