@@ -15,20 +15,7 @@ jobs:
           git branch -a
           COUNT=`git rev-list origin/production..origin/master --count`
           echo ::set-output name=DIFF_COUNT::`git rev-list origin/production..origin/master --count`
-          if $COUNT > 10 ; then
-            echo test
-          fi
         id: difference-count
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo count = ${{ steps.difference-count.outputs.DIFF_COUNT }}
-          echo ${{ steps.difference-count.outputs.DIFF_COUNT > 10 }}
-          echo ${{ steps.difference-count.outputs.DIFF_COUNT < 100 }}
-          echo test, and deploy your project.
-      - name: if test
-        if: steps.difference-count.outputs.DIFF_COUNT > 10
-        run: echo 10 over
-      - name: if test2
-        if: steps.difference-count.outputs.DIFF_COUNT < 100
-        run: echo 100 under
+      - name: Slack Notification
+        if: steps.difference-count.outputs.DIFF_COUNT > 50
+        run: echo 50 over
