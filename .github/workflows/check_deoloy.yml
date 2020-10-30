@@ -17,5 +17,31 @@ jobs:
           echo ::set-output name=DIFF_COUNT::`git rev-list origin/production..origin/master --count`
         id: difference-count
       - name: Slack Notification
-        if: steps.difference-count.outputs.DIFF_COUNT > 50
-        run: echo 50 over
+        if: steps.difference-count.outputs.DIFF_COUNT > 1
+        uses: tokorom/action-slack-incoming-webhook@main
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          text: The differential commit with production is now large.
+          attachments: |
+                  [
+                    {
+                      "color": "good",
+                      "author_name": "${{ github.actor }}",
+                      "author_icon": "${{ github.event.sender.avatar_url }}",
+                      "fields": [
+                        {
+                          "title": "The number of differences in commitments",
+                          "value": "${{ steps.difference-count.outputs.DIFF_COUNT }}"
+                        },
+                        {
+                          "title": "GitHub Actions URL",
+                          "value": "${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}"
+                        },
+                        {
+                          "title": "Compare URL",
+                          "value": "${{ github.event.compare }}"
+                        }
+                      ]
+                    }
+                  ]
