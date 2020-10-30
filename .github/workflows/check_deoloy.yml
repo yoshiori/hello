@@ -13,7 +13,8 @@ jobs:
       - name: get number of commits in the difference
         run: |
           git branch -a
-          echo '::set-output name=DIFF_COUNT::`git rev-list origin/production..origin/master --count`'
+          COUNT = `git rev-list origin/production..origin/master --count`
+          echo '::set-output name=DIFF_COUNT::$COUNT'
         id: difference-count
       - name: Run a multi-line script
         run: |
