@@ -14,7 +14,10 @@ jobs:
         run: |
           git branch -a
           COUNT=`git rev-list origin/production..origin/master --count`
-          echo '::set-output name=DIFF_COUNT::$COUNT'
+          echo ::set-output name=DIFF_COUNT::$COUNT
+          if $COUNT < 10 ; then
+            echo test
+          fi
         id: difference-count
       - name: Run a multi-line script
         run: |
