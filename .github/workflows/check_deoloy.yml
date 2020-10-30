@@ -12,11 +12,11 @@ jobs:
           fetch-depth: 0
       - name: get number of commits in the difference
         run: |
-          git branch -a 
-          git rev-list origin/production..origin/master --count
-          git rev-list origin/production..origin/master
-          echo test
+          git branch -a
+          echo '::set-output name=DIFF_COUNT::git rev-list origin/production..origin/master --count'
+        id: difference-count
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
+          echo count = {{ steps.difference-count.outputs.DIFF_COUNT}}
           echo test, and deploy your project.
